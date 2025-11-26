@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPISkillUp - Free Online Courses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4bb543;
+            --warning: #ffcc00;
+            --danger: #dc3545;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: white;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: var(--secondary);
+        }
+
+        .filters-container {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+            background-color: white;
+            font-size: 0.9rem;
+            min-width: 180px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .course-header {
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-title a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .course-provider {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .course-body {
+            padding: 1.2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .course-duration, .course-level {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .course-dates {
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .status.live {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+
+        .status.ongoing {
+            background-color: rgba(255, 204, 0, 0.1);
+            color: #b38f00;
+        }
+
+        .status.upcoming {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #1d4ed8;
+        }
+
+        .blink {
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .certificate {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 1.2rem;
+        }
+
+        .skill-tag {
+            background-color: var(--light-gray);
+            padding: 4px 8px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+        }
+
+        .job-opportunity {
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .roadmap-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            justify-content: center;
+        }
+
+        .roadmap-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .roadmap-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .roadmap-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .roadmap-steps {
+            margin-top: 1.5rem;
+        }
+
+        .roadmap-step {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .step-content ul {
+            margin-left: 1.5rem;
+        }
+
+        .step-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2.5rem 0;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 0.85rem;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 15px;
+                top: 20px;
+            }
+            
+            nav {
+                width: 100%;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+            
+            nav a {
+                display: block;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+                border-radius: 10px;
+            }
+            
+            .search-bar input {
+                border-radius: 10px 10px 0 0;
+            }
+            
+            .search-bar button {
+                padding: 12px;
+                border-radius: 0 0 10px 10px;
+            }
+            
+            .filters-container {
+                gap: 0.8rem;
+            }
+            
+            .filter-select {
+                min-width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .hero {
+                padding: 1.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .course-card {
+                margin: 0 5px;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-group {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>SPIskillUp</span>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Roadmaps</a></li>
+                        <li><a href="#">Career Guide</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Advance Your Career with Free Online Courses</h1>
+            <p>Discover high-quality courses from top providers and build in-demand skills for today's job market</p>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for courses, skills, or providers...">
+                <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="categoryFilter">Field/Category</label>
+                <select id="categoryFilter" class="filter-select">
+                    <option value="all">All Fields</option>
+                    <option value="ai-ml">AI & Machine Learning</option>
+                    <option value="data-science">Data Science</option>
+                    <option value="cybersecurity">Cybersecurity</option>
+                    <option value="cloud-computing">Cloud Computing</option>
+                    <option value="web-development">Web Development</option>
+                    <option value="blockchain">Blockchain & Web3</option>
+                    <option value="quantum">Quantum Computing</option>
+                    <option value="biotech">Biotechnology</option>
+                    <option value="sustainability">Sustainability</option>
+                    <option value="healthcare">Healthcare Technology</option>
+                    <option value="business">Business & Management</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="providerFilter">Provider</label>
+                <select id="providerFilter" class="filter-select">
+                    <option value="all">All Providers</option>
+                    <option value="google">Google</option>
+                    <option value="microsoft">Microsoft</option>
+                    <option value="ibm">IBM</option>
+                    <option value="aws">Amazon Web Services</option>
+                    <option value="stanford">Stanford</option>
+                    <option value="mit">MIT</option>
+                    <option value="harvard">Harvard</option>
+                    <option value="coursera">Coursera</option>
+                    <option value="edx">edX</option>
+                    <option value="futurelearn">FutureLearn</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="levelFilter">Level</label>
+                <select id="levelFilter" class="filter-select">
+                    <option value="all">All Levels</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="statusFilter">Status</label>
+                <select id="statusFilter" class="filter-select">
+                    <option value="all">All Status</option>
+                    <option value="live">Live Now</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="upcoming">Upcoming</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="courses-grid" id="courses-container">
+            <!-- Courses will be populated by JavaScript -->
+        </div>
+
+        <div class="search-results" id="searchResults" style="display: none;">
+            <h2>Search Results</h2>
+            <div id="onlineCoursesContainer"></div>
+        </div>
+    </main>
+
+    <!-- Roadmap Modal -->
+    <div class="roadmap-modal" id="roadmapModal">
+        <div class="roadmap-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 id="roadmapTitle">Skill Development Roadmap</h2>
+            <div class="roadmap-steps" id="roadmapSteps">
+                <!-- Roadmap steps will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SPIskillUp</h3>
+                    <p>Your gateway to free professional education and career advancement.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">All Courses</a></li>
+                        <li><a href="#">Skill Roadmaps</a></li>
+                        <li><a href="#">Career Paths</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Popular Categories</h3>
+                    <ul>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Data Science</a></li>
+                        <li><a href="#">Digital Marketing</a></li>
+                        <li><a href="#">UX/UI Design</a></li>
+                        <li><a href="#">Cloud Computing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@spiskillup.com</li>
+                        <li><i class="fas fa-phone"></i> +917586975367</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Haripal, Hooghly, WB</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 SPISkillUp. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Comprehensive course data with current and future courses for 2025
+        const courses = [
+            {
+                id: 1,
+                name: "Generative AI with Large Language Models",
+                link: "https://www.coursera.org/learn/generative-ai-with-llms",
+                provider: "Google",
+                duration: "4 weeks (6 hours/week)",
+                startDate: "2025-11-15",
+                endDate: "2025-12-13",
+                status: "upcoming",
+                level: "Intermediate",
+                certificate: true,
+                skills: ["Generative AI", "LLMs", "Prompt Engineering", "Transformer Architecture", "Fine-tuning"],
+                jobOpportunity: "AI Engineer, ML Engineer, Prompt Engineer, AI Researcher",
+                roadmap: "ai-ml",
+                category: "ai-ml",
+                description: "Learn to build and deploy generative AI applications using large language models like GPT-4 and PaLM."
+            },
+            {
+                id: 2,
+                name: "Quantum Computing Fundamentals",
+                link: "https://www.edx.org/course/quantum-computing-fundamentals",
+                provider: "MIT",
+                duration: "8 weeks (5 hours/week)",
+                startDate: "2025-10-20",
+                endDate: "2025-12-15",
+                status: "ongoing",
+                level: "Intermediate",
+                certificate: true,
+                skills: ["Quantum Mechanics", "Qubits", "Quantum Algorithms", "Quantum Gates", "Quantum Simulation"],
+                jobOpportunity: "Quantum Researcher, Quantum Algorithm Developer, Quantum Software Engineer",
+                roadmap: "quantum",
+                category: "quantum",
+                description: "Introduction to quantum computing principles, algorithms, and programming with real quantum computers."
+            },
+            {
+                id: 3,
+                name: "Cybersecurity for AI Systems",
+                link: "https://www.coursera.org/learn/cybersecurity-ai-systems",
+                provider: "Microsoft",
+                duration: "6 weeks (4 hours/week)",
+                startDate: "2025-11-01",
+                endDate: "2025-12-13",
+                status: "upcoming",
+                level: "Advanced",
+                certificate: true,
+                skills: ["AI Security", "Adversarial Attacks", "Model Robustness", "Privacy Preservation", "Secure ML"],
+                jobOpportunity: "AI Security Specialist, Cybersecurity Analyst, ML Security Engineer",
+                roadmap: "cybersecurity",
+                category: "cybersecurity",
+                description: "Learn to protect AI systems from security threats and vulnerabilities in machine learning models."
+            },
+            {
+                id: 4,
+                name: "Sustainable Technology Solutions",
+                link: "https://www.futurelearn.com/courses/sustainable-technology",
+                provider: "Stanford",
+                duration: "5 weeks (3 hours/week)",
+                startDate: "2025-09-15",
+                endDate: "2025-10-20",
+                status: "live",
+                level: "Intermediate",
+                certificate: true,
+                skills: ["Green Computing", "Carbon Footprint Analysis", "Sustainable Design", "Energy Efficiency", "Circular Economy"],
+                jobOpportunity: "Sustainability Consultant, Green Tech Specialist, Environmental Analyst",
+                roadmap: "sustainability",
+                category: "sustainability",
+                description: "Explore how technology can drive sustainability and reduce environmental impact across industries."
+            },
+            {
+                id: 5,
+                name: "Blockchain and Web3 Development",
+                link: "https://www.coursera.org/specializations/blockchain-web3",
+                provider: "IBM",
+                duration: "12 weeks (7 hours/week)",
+                startDate: "2025-11-10",
+                endDate: "2026-02-02",
+                status: "upcoming",
+                level: "Intermediate",
+                certificate: true,
+                skills: ["Smart Contracts", "Solidity", "DeFi", "NFTs", "DApp Development", "Web3 Architecture"],
+                jobOpportunity: "Blockchain Developer, Smart Contract Auditor, Web3 Engineer, DeFi Specialist",
+                roadmap: "blockchain",
+                category: "blockchain",
+                description: "Master blockchain technology and develop decentralized applications for the Web3 ecosystem."
+            },
+            {
+                id: 6,
+                name: "Healthcare Data Analytics",
+                link: "https://www.edx.org/course/healthcare-data-analytics",
+                provider: "Harvard",
+                duration: "10 weeks (5 hours/week)",
+                startDate: "2025-10-05",
+                endDate: "2025-12-14",
+                status: "ongoing",
+                level: "Intermediate",
+                certificate: true,
+                skills: ["Healthcare Data", "Medical Analytics", "Predictive Modeling", "Clinical Decision Support", "Health Informatics"],
+                jobOpportunity: "Healthcare Data Analyst, Clinical Informatician, Health Tech Specialist",
+                roadmap: "healthcare",
+                category: "healthcare",
+                description: "Learn to analyze healthcare data to improve patient outcomes and optimize healthcare delivery."
+            },
+            {
+                id: 7,
+                name: "Advanced Cloud Native Architecture",
+                link: "https://www.coursera.org/learn/cloud-native-architecture",
+                provider: "Amazon Web Services",
+                duration: "7 weeks (6 hours/week)",
+                startDate: "2025-11-20",
+                endDate: "2026-01-08",
+                status: "upcoming",
+                level: "Advanced",
+                certificate: true,
+                skills: ["Microservices", "Kubernetes", "Serverless", "DevOps", "Cloud Security", "Infrastructure as Code"],
+                jobOpportunity: "Cloud Architect, DevOps Engineer, Site Reliability Engineer, Cloud Consultant",
+                roadmap: "cloud-computing",
+                category: "cloud-computing",
+                description: "Design and implement scalable, resilient cloud-native applications using modern cloud technologies."
+            },
+            {
+                id: 8,
+                name: "Synthetic Biology and Biotech Innovation",
+                link: "https://www.edx.org/course/synthetic-biology",
+                provider: "MIT",
+                duration: "9 weeks (4 hours/week)",
+                startDate: "2025-10-25",
+                endDate: "2025-12-27",
+                status: "ongoing",
+                level: "Advanced",
+                certificate: true,
+                skills: ["Genetic Engineering", "CRISPR", "Bioinformatics", "Metabolic Engineering", "Lab Automation"],
+                jobOpportunity: "Biotech Researcher, Synthetic Biologist, Bioinformatician, Bioprocess Engineer",
+                roadmap: "biotech",
+                category: "biotech",
+                description: "Explore the cutting edge of synthetic biology and its applications in medicine, agriculture, and industry."
+            },
+            {
+                id: 9,
+                name: "Full Stack Web Development with Next.js 15",
+                link: "https://www.coursera.org/learn/full-stack-nextjs",
+                provider: "Google",
+                duration: "8 weeks (5 hours/week)",
+                startDate: "2025-11-05",
+                endDate: "2025-12-31",
+                status: "upcoming",
+                level: "Intermediate",
+                certificate: true,
+                skills: ["Next.js 15", "React", "TypeScript", "API Development", "Server Components", "Performance Optimization"],
+                jobOpportunity: "Full Stack Developer, Frontend Engineer, Web Application Developer",
+                roadmap: "web-development",
+                category: "web-development",
+                description: "Build modern, high-performance web applications with Next.js 15 and the latest web technologies."
+            },
+            {
+                id: 10,
+                name: "AI-Powered Business Strategy",
+                link: "https://www.futurelearn.com/courses/ai-business-strategy",
+                provider: "Stanford",
+                duration: "6 weeks (3 hours/week)",
+                startDate: "2025-09-30",
+                endDate: "2025-11-11",
+                status: "live",
+                level: "Intermediate",
+                certificate: true,
+                skills: ["AI Strategy", "Business Transformation", "Digital Innovation", "Change Management", "ROI Analysis"],
+                jobOpportunity: "Business Strategist, Digital Transformation Lead, Innovation Manager",
+                roadmap: "business",
+                category: "business",
+                description: "Learn how to leverage AI technologies to drive business innovation and competitive advantage."
+            }
+        ];
+
+        // Roadmap data for different fields
+        const roadmaps = {
+            "ai-ml": {
+                title: "AI & Machine Learning Career Roadmap",
+                steps: [
+                    {
+                        title: "Foundation (1-3 months)",
+                        content: `
+                            <ul>
+                                <li>Learn Python programming fundamentals</li>
+                                <li>Study linear algebra, calculus, and statistics</li>
+                                <li>Complete introductory machine learning course</li>
+                                <li>Practice with data analysis libraries (Pandas, NumPy)</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Core ML Skills (3-6 months)",
+                        content: `
+                            <ul>
+                                <li>Master supervised and unsupervised learning algorithms</li>
+                                <li>Learn deep learning fundamentals with TensorFlow/PyTorch</li>
+                                <li>Work on data preprocessing and feature engineering</li>
+                                <li>Complete 2-3 end-to-end ML projects</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Specialization (6-12 months)",
+                        content: `
+                            <ul>
+                                <li>Choose specialization: Computer Vision, NLP, or Reinforcement Learning</li>
+                                <li>Study advanced neural network architectures</li>
+                                <li>Learn MLOps and model deployment</li>
+                                <li>Contribute to open-source ML projects</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Advanced & Career (12+ months)",
+                        content: `
+                            <ul>
+                                <li>Study research papers in your specialization</li>
+                                <li>Build portfolio of complex projects</li>
+                                <li>Prepare for technical interviews</li>
+                                <li>Network with AI professionals and attend conferences</li>
+                            </ul>
+                        `
+                    }
+                ]
+            },
+            "blockchain": {
+                title: "Blockchain & Web3 Development Roadmap",
+                steps: [
+                    {
+                        title: "Blockchain Fundamentals (1-2 months)",
+                        content: `
+                            <ul>
+                                <li>Understand blockchain technology and cryptography</li>
+                                <li>Learn about different consensus mechanisms</li>
+                                <li>Study Bitcoin and Ethereum architecture</li>
+                                <li>Explore wallet creation and transaction basics</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Smart Contract Development (2-4 months)",
+                        content: `
+                            <ul>
+                                <li>Master Solidity programming language</li>
+                                <li>Learn to write, test, and deploy smart contracts</li>
+                                <li>Understand security best practices and common vulnerabilities</li>
+                                <li>Build simple DApps with Web3.js or Ethers.js</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Advanced DApp Development (4-6 months)",
+                        content: `
+                            <ul>
+                                <li>Learn advanced smart contract patterns</li>
+                                <li>Study DeFi protocols and NFT standards</li>
+                                <li>Explore layer 2 solutions and scaling</li>
+                                <li>Build full-stack decentralized applications</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Specialization & Career (6+ months)",
+                        content: `
+                            <ul>
+                                <li>Choose specialization: DeFi, NFTs, DAOs, or Enterprise Blockchain</li>
+                                <li>Learn about blockchain security auditing</li>
+                                <li>Contribute to open-source blockchain projects</li>
+                                <li>Network in Web3 communities and attend hackathons</li>
+                            </ul>
+                        `
+                    }
+                ]
+            },
+            "cybersecurity": {
+                title: "Cybersecurity Career Roadmap",
+                steps: [
+                    {
+                        title: "Foundation (1-2 months)",
+                        content: `
+                            <ul>
+                                <li>Learn networking fundamentals and protocols</li>
+                                <li>Understand operating systems (Windows/Linux)</li>
+                                <li>Study basic cryptography concepts</li>
+                                <li>Learn about common cyber threats and attacks</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Core Security Skills (3-5 months)",
+                        content: `
+                            <ul>
+                                <li>Master network security and firewalls</li>
+                                <li>Learn vulnerability assessment and penetration testing</li>
+                                <li>Study incident response and digital forensics</li>
+                                <li>Practice with security tools (Wireshark, Nmap, Metasploit)</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Specialization (6-9 months)",
+                        content: `
+                            <ul>
+                                <li>Choose specialization: Network Security, Application Security, or Cloud Security</li>
+                                <li>Earn entry-level certifications (Security+, CEH)</li>
+                                <li>Participate in CTF competitions and bug bounties</li>
+                                <li>Build home lab for hands-on practice</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        title: "Advanced & Career (9+ months)",
+                        content: `
+                            <ul>
+                                <li>Pursue advanced certifications (CISSP, OSCP)</li>
+                                <li>Develop expertise in your chosen specialization</li>
+                                <li>Build professional network in cybersecurity community</li>
+                                <li>Stay updated with latest threats and defense techniques</li>
+                            </ul>
+                        `
+                    }
+                ]
+            }
+        };
+
+        // Function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Function to render courses
+        function renderCourses(coursesToRender) {
+            const container = document.getElementById('courses-container');
+            container.innerHTML = '';
+
+            if (coursesToRender.length === 0) {
+                container.innerHTML = '<div class="loading"><p>No courses found matching your criteria.</p></div>';
+                return;
+            }
+
+            coursesToRender.forEach(course => {
+                const statusClass = course.status === 'live' ? 'live blink' : 
+                                  course.status === 'ongoing' ? 'ongoing' : 'upcoming';
+                
+                const statusText = course.status === 'live' ? 'Live Now' : 
+                                 course.status === 'ongoing' ? 'Ongoing' : 'Starting Soon';
+
+                const courseElement = document.createElement('div');
+                courseElement.className = 'course-card';
+                courseElement.innerHTML = `
+                    <div class="course-header">
+                        <h3 class="course-title">
+                            <a href="${course.link}" target="_blank">${course.name}</a>
+                        </h3>
+                        <div class="course-provider">
+                            <i class="fas fa-building"></i>
+                            <span>${course.provider}</span>
+                        </div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-meta">
+                            <div class="course-duration">
+                                <i class="far fa-clock"></i>
+                                <span>${course.duration}</span>
+                            </div>
+                            <div class="course-level">
+                                <i class="fas fa-signal"></i>
+                                <span>${course.level}</span>
+                            </div>
+                        </div>
+                        <div class="course-dates">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>${formatDate(course.startDate)} - ${formatDate(course.endDate)}</span>
+                        </div>
+                        <div class="status ${statusClass}">
+                            <i class="fas fa-circle"></i>
+                            <span>${statusText}</span>
+                        </div>
+                        <div class="certificate">
+                            <i class="fas fa-certificate"></i>
+                            <span>Certificate: ${course.certificate ? 'Available' : 'Not Available'}</span>
+                        </div>
+                        <div class="skills-list">
+                            ${course.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                        <div class="job-opportunity">
+                            <strong>Job Opportunities:</strong> ${course.jobOpportunity}
+                        </div>
+                        <a href="#" class="roadmap-btn view-roadmap" data-roadmap="${course.roadmap}">
+                            <i class="fas fa-road"></i>
+                            <span>View Skill Roadmap</span>
+                        </a>
+                    </div>
+                `;
+                container.appendChild(courseElement);
+            });
+
+            // Add event listeners to roadmap buttons
+            document.querySelectorAll('.view-roadmap').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const roadmapId = this.getAttribute('data-roadmap');
+                    showRoadmap(roadmapId);
+                });
+            });
+        }
+
+        // Function to show roadmap modal
+        function showRoadmap(roadmapId) {
+            const roadmap = roadmaps[roadmapId];
+            const modal = document.getElementById('roadmapModal');
+            const title = document.getElementById('roadmapTitle');
+            const stepsContainer = document.getElementById('roadmapSteps');
+            
+            if (roadmap) {
+                title.textContent = roadmap.title;
+                stepsContainer.innerHTML = '';
+                
+                roadmap.steps.forEach((step, index) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'roadmap-step';
+                    stepElement.innerHTML = `
+                        <div class="step-number">${index + 1}</div>
+                        <div class="step-content">
+                            <h4>${step.title}</h4>
+                            ${step.content}
+                        </div>
+                    `;
+                    stepsContainer.appendChild(stepElement);
+                });
+                
+                modal.style.display = 'flex';
+            } else {
+                // Default roadmap if specific one not found
+                title.textContent = "Skill Development Roadmap";
+                stepsContainer.innerHTML = `
+                    <div class="roadmap-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Foundation (1-3 months)</h4>
+                            <ul>
+                                <li>Learn the fundamental concepts and terminology</li>
+                                <li>Complete introductory courses in your chosen field</li>
+                                <li>Build basic projects to apply your knowledge</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Core Skills (3-6 months)</h4>
+                            <ul>
+                                <li>Master the essential tools and technologies</li>
+                                <li>Work on intermediate-level projects</li>
+                                <li>Join online communities and participate in discussions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Specialization (6-9 months)</h4>
+                            <ul>
+                                <li>Choose a specific area to focus on</li>
+                                <li>Complete advanced courses and certifications</li>
+                                <li>Build a portfolio of specialized projects</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Career Development (9+ months)</h4>
+                            <ul>
+                                <li>Network with professionals in your field</li>
+                                <li>Prepare for technical interviews</li>
+                                <li>Contribute to open-source projects</li>
+                                <li>Stay updated with industry trends</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                modal.style.display = 'flex';
+            }
+        }
+
+        // Function to filter courses
+        function filterCourses() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const providerFilter = document.getElementById('providerFilter').value;
+            const levelFilter = document.getElementById('levelFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            let filteredCourses = courses;
+            
+            if (categoryFilter !== 'all') {
+                filteredCourses = filteredCourses.filter(course => course.category === categoryFilter);
+            }
+            
+            if (providerFilter !== 'all') {
+                filteredCourses = filteredCourses.filter(course => course.provider.toLowerCase() === providerFilter);
+            }
+            
+            if (levelFilter !== 'all') {
+                filteredCourses = filteredCourses.filter(course => course.level.toLowerCase() === levelFilter);
+            }
+            
+            if (statusFilter !== 'all') {
+                filteredCourses = filteredCourses.filter(course => course.status === statusFilter);
+            }
+            
+            renderCourses(filteredCourses);
+        }
+
+        // Initialize the page with all courses
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCourses(courses);
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+            });
+            
+            // Add filter functionality
+            document.querySelectorAll('.filter-select').forEach(select => {
+                select.addEventListener('change', filterCourses);
+            });
+            
+            // Close modal functionality
+            document.getElementById('closeModal').addEventListener('click', () => {
+                document.getElementById('roadmapModal').style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                const modal = document.getElementById('roadmapModal');
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Add search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            searchBtn.addEventListener('click', () => {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                if (searchTerm) {
+                    const filteredCourses = courses.filter(course => 
+                        course.name.toLowerCase().includes(searchTerm) ||
+                        course.provider.toLowerCase().includes(searchTerm) ||
+                        course.skills.some(skill => skill.toLowerCase().includes(searchTerm)) ||
+                        course.description.toLowerCase().includes(searchTerm)
+                    );
+                    
+                    if (filteredCourses.length > 0) {
+                        renderCourses(filteredCourses);
+                        document.getElementById('searchResults').style.display = 'block';
+                    } else {
+                        document.getElementById('courses-container').innerHTML = 
+                            '<div class="loading"><p>No courses found matching your search. Try different keywords.</p></div>';
+                        document.getElementById('searchResults').style.display = 'block';
+                    }
+                } else {
+                    // If search is empty, show all courses
+                    document.getElementById('searchResults').style.display = 'none';
+                    renderCourses(courses);
+                }
+            });
+            
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
